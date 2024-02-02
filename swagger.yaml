@@ -63,6 +63,7 @@ components:
           type: "string"
         logoUrl:
           type: "string"
+          format: "uri"
         category:
           $ref: "#/components/schemas/Category"
     Category:
@@ -75,3 +76,4 @@ components:
           type: "string"
         iconUrl:
           type: "string"
+          format: "uri"
