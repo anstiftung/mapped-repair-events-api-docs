@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: API docs
-  description: API documentation for the reparatur-initiativen.de API - mapped repair events platform
+  title: Mapped Repair Events API
+  description: API documentation for the mapped repair events API
   version: v1
 
 servers:
