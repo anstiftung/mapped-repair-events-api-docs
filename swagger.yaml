@@ -49,6 +49,15 @@ components:
           type: "string"
         street2:
           type: "string"
+        coordinates:
+          type: "object"
+          properties:
+            lat:
+              type: "number"
+              format: "double"
+            lng:
+              type: "number"
+              format: "double"
         landingPage:
           type: "string"
         logoUrl:
