@@ -5,9 +5,9 @@ info:
   version: v1
 
 servers:
-#  - url: https://www.reparatur-initiativen.de/api/v1/rest
+#  - url: https://www.reparatur-initiativen.de/api/v1
 #    description: Production server
-  - url: https://test.reparatur-initiativen.de/api/v1/rest
+  - url: https://test.reparatur-initiativen.de/api/v1
     description: Test server
 
 paths:
