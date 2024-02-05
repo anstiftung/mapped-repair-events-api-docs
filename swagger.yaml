@@ -19,7 +19,7 @@ paths:
       parameters:
       - name: "city"
         in: "query"
-        description: "city (e.g. berlin), case insensitve, finds any workshops that start with city"
+        description: "city (e.g. berlin), case insensitve, finds any workshops who are located in the given city"
         required: true
         schema:
             type: string
