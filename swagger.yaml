@@ -15,7 +15,7 @@ paths:
     get:
       tags:
       - "workshops"
-      summary: "returns a list of workshops in a city"
+      summary: "returns a list of workshops"
       parameters:
       - name: "city"
         in: "query"
