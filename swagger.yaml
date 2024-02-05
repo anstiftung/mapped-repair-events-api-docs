@@ -11,7 +11,7 @@ servers:
     description: Test server
 
 paths:
-  /workshops/city/{city}:
+  /workshops:
     get:
       tags:
       - "workshops"
