@@ -18,7 +18,7 @@ paths:
       summary: "returns a list of workshops in a city"
       parameters:
       - name: "city"
-        in: "path"
+        in: "query"
         description: "city name (e.g. Berlin), case insensitve, city must start with the given string"
         required: true
         schema:
