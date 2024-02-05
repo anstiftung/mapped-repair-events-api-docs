@@ -31,6 +31,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Workshop'
+        '400':
+          description: city not passed or invalid (min 3 chars)
+        '404':
+          description: no workshops found
 
 components:
   schemas:
