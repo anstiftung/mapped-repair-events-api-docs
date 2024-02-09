@@ -2,6 +2,6 @@ API Docs for [https://github.com/anstiftung/mapped-repair-events](https://github
 
 [https://anstiftung.github.io/mapped-repair-events-api-docs/](https://anstiftung.github.io/mapped-repair-events-api-docs/)
 
-Update Swagger
+Update Swagger UI:
 1) Download latest Version [https://github.com/swagger-api/swagger-ui/releases](https://github.com/swagger-api/swagger-ui/releases)
-2) Replace the `dist` folder with the new one
+2) Follow the instructions of this [link](https://github.com/peter-evans/swagger-github-pages)
