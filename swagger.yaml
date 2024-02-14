@@ -70,6 +70,10 @@ components:
           format: "uri"
         category:
           $ref: "#/components/schemas/Category"
+        nextEvent:
+          type: "string"
+          format: "date"
+          nullable: true
     Category:
       type: "object"
       properties:
