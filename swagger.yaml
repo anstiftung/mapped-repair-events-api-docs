@@ -45,7 +45,7 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-      description: Bearer token authentication. Use the API token provided by the admin.
+      description: Bearer token authentication. Ask for a new token at reparieren@anstiftung.de
   schemas:
     Workshop:
       type: "object"
