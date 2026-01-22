@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Mapped Repair Events API
-  description: API documentation for the mapped repair events API
+  description: API documentation for the mapped repair events API. Request a token at reparieren@anstiftung.de
   version: v1
 
 servers:
@@ -45,7 +45,7 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-      description: Bearer token authentication. Ask for a new token at reparieren@anstiftung.de
+      description: Bearer token authentication. Request a token at reparieren@anstiftung.de
   schemas:
     Workshop:
       type: "object"
