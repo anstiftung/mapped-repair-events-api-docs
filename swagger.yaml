@@ -39,6 +39,100 @@ paths:
           description: API token is required or invalid
         '404':
           description: no workshops found
+  /statistics:
+    get:
+      tags:
+      - "statistics"
+      summary: "returns aggregated repair statistics"
+      description: "Returns aggregated repair outcome counts, environmental footprint values in tons, initiative counts, and alphabetically sorted category statistics. City and province filters are optional and should not be combined in one request."
+      servers:
+        - url: https://www.reparatur-initiativen.de/api
+          description: Production server
+        - url: https://test.reparatur-initiativen.de/api
+          description: Test server
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: "city"
+        in: "query"
+        description: "Optional city filter. If present, the token must allow this search term. Do not combine with province."
+        required: false
+        schema:
+          type: string
+          example: Berlin
+      - name: "province"
+        in: "query"
+        description: "Optional German federal state filter. If present, the token must allow this search term. Do not combine with city."
+        required: false
+        schema:
+          type: string
+          example: Bayern
+      - name: "dateFrom"
+        in: "query"
+        description: "Optional start date filter for event dates."
+        required: false
+        schema:
+          type: string
+          format: date
+          example: "2020-01-01"
+      - name: "dateTo"
+        in: "query"
+        description: "Optional end date filter for event dates."
+        required: false
+        schema:
+          type: string
+          format: date
+          example: "2029-12-31"
+      responses:
+        '200':
+          description: Aggregated statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatisticsResponse'
+              example:
+                statistics:
+                  filters:
+                    city: Berlin
+                    province: null
+                    dateFrom: "2020-01-01"
+                    dateTo: "2029-12-31"
+                  counts:
+                    repaired: 8
+                    repairable: 0
+                    notRepaired: 0
+                    total: 8
+                  environmentalImpact:
+                    carbonFootprint: 0.048
+                    materialFootprint: 0.072
+                  initiativeCount: 1
+                  categories:
+                    - label: "3D-Reparatur"
+                      counts:
+                        repaired: 4
+                        repairable: 0
+                        notRepaired: 0
+                        total: 4
+                      environmentalImpact:
+                        carbonFootprint: 0.036
+                        materialFootprint: 0.048
+                      initiativeCount: 1
+                    - label: Elektro
+                      counts:
+                        repaired: 4
+                        repairable: 0
+                        notRepaired: 0
+                        total: 4
+                      environmentalImpact:
+                        carbonFootprint: 0.012
+                        materialFootprint: 0.024
+                      initiativeCount: 1
+        '400':
+          description: dateFrom and dateTo must be valid dates
+        '401':
+          description: API token is required, invalid, inactive, wrong type, wrong domain, or not allowed for the requested city/province
+        '404':
+          description: province not found
 
 components:
   securitySchemes:
@@ -94,3 +188,107 @@ components:
         iconUrl:
           type: "string"
           format: "uri"
+    StatisticsResponse:
+      type: object
+      properties:
+        statistics:
+          $ref: "#/components/schemas/Statistics"
+      required:
+        - statistics
+    Statistics:
+      type: object
+      properties:
+        filters:
+          $ref: "#/components/schemas/StatisticsFilters"
+        counts:
+          $ref: "#/components/schemas/StatisticsCounts"
+        environmentalImpact:
+          $ref: "#/components/schemas/StatisticsEnvironmentalImpact"
+        initiativeCount:
+          type: integer
+          format: int32
+          description: "Number of initiatives with matching info sheets."
+        categories:
+          type: array
+          description: "Category statistics, sorted alphabetically by label. Category IDs are intentionally not included."
+          items:
+            $ref: "#/components/schemas/StatisticsCategory"
+      required:
+        - filters
+        - counts
+        - environmentalImpact
+        - initiativeCount
+        - categories
+    StatisticsFilters:
+      type: object
+      properties:
+        city:
+          type: string
+          nullable: true
+        province:
+          type: string
+          nullable: true
+        dateFrom:
+          type: string
+          format: date
+          nullable: true
+        dateTo:
+          type: string
+          format: date
+          nullable: true
+      required:
+        - city
+        - province
+        - dateFrom
+        - dateTo
+    StatisticsCounts:
+      type: object
+      properties:
+        repaired:
+          type: integer
+          format: int32
+        repairable:
+          type: integer
+          format: int32
+        notRepaired:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+      required:
+        - repaired
+        - repairable
+        - notRepaired
+        - total
+    StatisticsEnvironmentalImpact:
+      type: object
+      properties:
+        carbonFootprint:
+          type: number
+          format: double
+          description: "Saved carbon footprint in tons."
+        materialFootprint:
+          type: number
+          format: double
+          description: "Saved material footprint in tons."
+      required:
+        - carbonFootprint
+        - materialFootprint
+    StatisticsCategory:
+      type: object
+      properties:
+        label:
+          type: string
+        counts:
+          $ref: "#/components/schemas/StatisticsCounts"
+        environmentalImpact:
+          $ref: "#/components/schemas/StatisticsEnvironmentalImpact"
+        initiativeCount:
+          type: integer
+          format: int32
+      required:
+        - label
+        - counts
+        - environmentalImpact
+        - initiativeCount
