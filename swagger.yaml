@@ -44,7 +44,7 @@ paths:
       tags:
       - "statistics"
       summary: "returns aggregated repair statistics"
-      description: "Returns aggregated repair outcome counts, environmental footprint values in tons, initiative counts, and alphabetically sorted category statistics. City and province filters are optional and should not be combined in one request."
+      description: "Returns aggregated repair outcome counts, environmental footprint values in tons, initiative counts, and alphabetically sorted category statistics. City and province filters are optional and must not be combined in one request."
       servers:
         - url: https://www.reparatur-initiativen.de/api
           description: Production server
@@ -62,11 +62,10 @@ paths:
           example: Berlin
       - name: "province"
         in: "query"
-        description: "Optional German federal state filter. If present, the token must allow this search term. Do not combine with city."
+        description: "Optional state filter. If present, the token must allow this search term. Do not combine with city."
         required: false
         schema:
           type: string
-          example: Bayern
       - name: "dateFrom"
         in: "query"
         description: "Optional start date filter for event dates."
@@ -207,10 +206,10 @@ components:
         initiativeCount:
           type: integer
           format: int32
-          description: "Number of initiatives with matching info sheets."
+          description: "Number of initiatives involved."
         categories:
           type: array
-          description: "Category statistics, sorted alphabetically by label. Category IDs are intentionally not included."
+          description: "Category statistics, sorted alphabetically by label."
           items:
             $ref: "#/components/schemas/StatisticsCategory"
       required:
