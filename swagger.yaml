@@ -5,13 +5,15 @@ info:
   version: v1
 
 servers:
-  - url: https://www.reparatur-initiativen.de/api/v1
+  - url: https://www.reparatur-initiativen.de/api
     description: Production server
-  - url: https://test.reparatur-initiativen.de/api/v1
+  - url: https://test.reparatur-initiativen.de/api
     description: Test server
+  - url: http://mapped-repair-events.test:8113/api
+    description: Dev server
 
 paths:
-  /workshops:
+  /v1/workshops:
     get:
       tags:
       - "workshops"
@@ -45,11 +47,6 @@ paths:
       - "statistics"
       summary: "returns aggregated repair statistics"
       description: "Returns aggregated repair outcome counts, environmental footprint values in tons, initiative counts, and alphabetically sorted category statistics. City and province filters are optional and must not be combined in one request."
-      servers:
-        - url: https://www.reparatur-initiativen.de/api
-          description: Production server
-        - url: https://test.reparatur-initiativen.de/api
-          description: Test server
       security:
         - bearerAuth: []
       parameters:
