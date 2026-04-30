@@ -41,7 +41,7 @@ paths:
           description: API token is required or invalid
         '404':
           description: no workshops found
-  /statistics:
+  /v1/statistics:
     get:
       tags:
       - "statistics"
