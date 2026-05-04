@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Mapped Repair Events API
-  description: API documentation for the mapped repair events API. Request a token at reparieren@anstiftung.de
+  description: API documentation for the mapped repair events API. Request a token at reparieren@anstiftung.de. Authenticated API requests are rate limited to 60 requests per minute per API token and API type.
   version: v1
 
 servers:
@@ -41,6 +41,8 @@ paths:
           description: API token is required or invalid
         '404':
           description: no workshops found
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
   /v1/statistics:
     get:
       tags:
@@ -131,6 +133,8 @@ paths:
           description: API token is required, invalid, inactive, wrong type, wrong domain, or not allowed for the requested city/province
         '404':
           description: province not found
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
 
 components:
   securitySchemes:
@@ -138,7 +142,44 @@ components:
       type: http
       scheme: bearer
       description: Bearer token authentication. Request a token at reparieren@anstiftung.de
+  responses:
+    RateLimitExceeded:
+      description: Rate limit exceeded. Wait for the retry window before sending another request.
+      headers:
+        Retry-After:
+          description: Seconds to wait before retrying.
+          schema:
+            type: integer
+            example: 60
+        X-RateLimit-Limit:
+          description: Maximum requests allowed in the current rate-limit window.
+          schema:
+            type: integer
+            example: 60
+        X-RateLimit-Remaining:
+          description: Requests remaining in the current rate-limit window.
+          schema:
+            type: integer
+            example: 0
+        X-RateLimit-Reset:
+          description: Unix timestamp when the current rate-limit window resets.
+          schema:
+            type: integer
+            example: 1714820000
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error: rate limit exceeded
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
     Workshop:
       type: "object"
       properties:
