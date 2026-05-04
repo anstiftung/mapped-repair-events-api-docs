@@ -69,20 +69,18 @@ paths:
           minLength: 3
       - name: "dateFrom"
         in: "query"
-        description: "Optional start date filter for event dates."
+        description: "Optional start date filter for event dates, formatted as yyyy-mm-dd."
         required: false
         schema:
           type: string
           format: date
-          example: "2020-01-01"
       - name: "dateTo"
         in: "query"
-        description: "Optional end date filter for event dates."
+        description: "Optional end date filter for event dates, formatted as yyyy-mm-dd."
         required: false
         schema:
           type: string
           format: date
-          example: "2029-12-31"
       responses:
         '200':
           description: Aggregated statistics
@@ -95,8 +93,8 @@ paths:
                   filters:
                     city: Berlin
                     province: null
-                    dateFrom: "2020-01-01"
-                    dateTo: "2029-12-31"
+                    dateFrom: null
+                    dateTo: null
                   counts:
                     repaired: 8
                     repairable: 0
@@ -215,6 +213,7 @@ components:
         nextEvent:
           type: "string"
           format: "date"
+          description: "Next event date, formatted as yyyy-mm-dd."
           nullable: true
     Category:
       type: "object"
@@ -272,10 +271,12 @@ components:
         dateFrom:
           type: string
           format: date
+          description: "Applied start date filter, formatted as yyyy-mm-dd."
           nullable: true
         dateTo:
           type: string
           format: date
+          description: "Applied end date filter, formatted as yyyy-mm-dd."
           nullable: true
       required:
         - city
