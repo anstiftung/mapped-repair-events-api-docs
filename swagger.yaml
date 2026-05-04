@@ -52,7 +52,7 @@ paths:
       parameters:
       - name: "city"
         in: "query"
-        description: "Optional city filter. If present, it must contain at least 3 characters and the token must allow this search term. Do not combine with province."
+        description: "Optional city filter. If present, the token must allow this search term. Do not combine with province."
         required: false
         schema:
           type: string
@@ -60,7 +60,7 @@ paths:
           minLength: 3
       - name: "province"
         in: "query"
-        description: "Optional state filter. If present, it must contain at least 3 characters and the token must allow this search term. Do not combine with city."
+        description: "Optional state filter. If present, the token must allow this search term. Do not combine with city."
         required: false
         schema:
           type: string
@@ -126,7 +126,7 @@ paths:
                         materialFootprint: 0.024
                       initiativeCount: 1
         '400':
-          description: dateFrom and dateTo must be valid dates, or city/province contains fewer than 3 characters
+          description: Provided dateFrom/dateTo must be valid dates
         '401':
           description: API token is required, invalid, inactive, wrong type, wrong domain, or not allowed for the requested city/province
         '404':
