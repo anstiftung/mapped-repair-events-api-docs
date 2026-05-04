@@ -58,15 +58,12 @@ paths:
         required: false
         schema:
           type: string
-          example: Berlin
-          minLength: 3
       - name: "province"
         in: "query"
         description: "State filter. Either city or province must be provided. If present, the token must allow this search term. Do not combine with city."
         required: false
         schema:
           type: string
-          minLength: 3
       - name: "dateFrom"
         in: "query"
         description: "Optional start date filter for event dates, formatted as yyyy-mm-dd."
