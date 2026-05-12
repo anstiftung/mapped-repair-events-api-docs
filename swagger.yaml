@@ -123,7 +123,7 @@ paths:
                         materialFootprint: 0.024
                       initiativeCount: 1
         '400':
-          description: city or province must be provided, or provided dateFrom/dateTo must be valid dates
+          description: city or province must be provided (but not both), or provided dateFrom/dateTo must be valid dates
         '401':
           description: API token is required, invalid, inactive, wrong type, wrong domain, or not allowed for the requested city/province
         '404':
